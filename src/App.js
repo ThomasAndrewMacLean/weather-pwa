@@ -9,8 +9,12 @@ class App extends Component {
 
   componentDidMount() {
     console.log(process.env)
+    console.log(navigator)
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
+    }
+    else {
+      console.log('no geo?!!!???')
     }
   }
 
@@ -44,14 +48,9 @@ class App extends Component {
 
         {this.state.data.currently &&
           <div>
-
-            <code>
-              {this.state.data.currently.summary}
-            </code>
+            {this.state.data.currently.summary}
             <br />
-            <code>
-              {this.state.data.currently.temperature}°C
-            </code>
+            {this.state.data.currently.temperature}°C
           </div>
 
         }
