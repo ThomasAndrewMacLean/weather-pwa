@@ -20,6 +20,7 @@ class App extends Component {
   }
 
   showPosition = (position) => {
+    console.log('testing');
     console.log(position.coords.latitude);
     console.log(position.coords.longitude);
 
