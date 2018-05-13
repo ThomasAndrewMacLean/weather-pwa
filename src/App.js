@@ -4,29 +4,73 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: {} };
+    this.state = { data: {}, city: '' };
   }
 
   componentDidMount() {
-    console.log(process.env)
-    console.log(navigator)
+    this.loadDataFromLocalStorage();
+    this.loadDataFromApi();
+
+  }
+
+  loadDataFromLocalStorage = () => {
+    console.log('loading from local storage');
+    const lat = localStorage.getItem('lat');
+    const lon = localStorage.getItem('lon');
+    const city = localStorage.getItem('city');
+
+    if (city) {
+      console.log('loadgin city')
+      this.setState({ city: JSON.parse(city) });
+    }
+    if (lat && lon) {
+      this.getWeatherData(lat, lon);
+    }
+  }
+
+  loadDataFromApi = () => {
+    console.log('loading from api');
     if (navigator.geolocation) {
-      console.log('getting position?');
       navigator.geolocation.getCurrentPosition(this.showPosition);
     }
     else {
-      console.log('no geo?!!!???')
+      console.log('no geo?!!!???');
     }
   }
 
   showPosition = (position) => {
-    console.log('testing');
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    localStorage.setItem('lat', lat);
+    localStorage.setItem('lon', lon);
+
+    this.getData(lat, lon);
+  }
+
+  getData = (lat, lon) => {
+    this.getCityData(lat, lon);
+    this.getWeatherData(lat, lon);
+  }
+
+  getCityData = (lat, lon) => {
+    fetch('https://d7gsigzqe2.execute-api.eu-west-1.amazonaws.com/dev/getcity?lat=' +
+      lat + '&lon=' + lon
+    )
+      .then(res => res.json())
+      .then(data => {
+        localStorage.setItem('city', JSON.stringify(data.results[0]));
+        console.log(data)
+        this.setState({
+          city: data.results[0]
+        });
+      })
+  }
+
+  getWeatherData = (lat, lon) => {
 
     fetch('https://d7gsigzqe2.execute-api.eu-west-1.amazonaws.com/dev/getweather?lat=' +
-      position.coords.latitude + '&lon=' +
-      position.coords.longitude
+      lat + '&lon=' + lon
     )
       .then(res => res.json())
       .then(data => {
@@ -35,8 +79,6 @@ class App extends Component {
           data: data
         });
       })
-
-
   }
 
   render() {
@@ -44,15 +86,24 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <code>
-            Whats the weather like...
+            Whats the weather like in {this.state.city ? this.state.city.formatted_address : '...'}
           </code>
         </header>
 
         {this.state.data.currently &&
           <div>
-            {this.state.data.currently.summary}
-            <br />
-            {this.state.data.currently.temperature}°C
+            <div className="data">
+              {this.state.data.currently.summary}
+            </div>
+            <div className="data">
+              {this.state.data.currently.temperature}°C
+           </div>
+            <div className="data">
+              {this.state.data.hourly.summary}°C
+           </div>
+            <div className="data">
+              {this.state.data.daily.summary}°C
+           </div>
           </div>
 
         }
