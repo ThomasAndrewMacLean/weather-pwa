@@ -118,6 +118,9 @@ class App extends Component {
             <div className="data">
               {this.state.data.daily.summary}°C
             </div>
+            <div className="data">
+              {new Date(this.state.data.currently.time * 1000).toLocaleTimeString()}
+            </div>
           </div>
 
         }
