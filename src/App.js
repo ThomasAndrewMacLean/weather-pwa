@@ -11,6 +11,7 @@ class App extends Component {
     console.log(process.env)
     console.log(navigator)
     if (navigator.geolocation) {
+      console.log('getting position?');
       navigator.geolocation.getCurrentPosition(this.showPosition);
     }
     else {
