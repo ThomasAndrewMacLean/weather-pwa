@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 
+const dontHitApi = process.env.NODE_ENV !== 'production' && localStorage.getItem('city');
+
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = { data: {}, city: '' };
@@ -9,8 +12,9 @@ class App extends Component {
 
   componentDidMount() {
     this.loadDataFromLocalStorage();
-    this.loadDataFromApi();
-
+    if (!dontHitApi) {
+      this.loadDataFromApi();
+    }
   }
 
   loadDataFromLocalStorage = () => {
@@ -18,18 +22,22 @@ class App extends Component {
     const lat = localStorage.getItem('lat');
     const lon = localStorage.getItem('lon');
     const city = localStorage.getItem('city');
+    const data = localStorage.getItem('data');
+
 
     if (city) {
-      console.log('loadgin city')
       this.setState({ city: JSON.parse(city) });
     }
-    if (lat && lon) {
+    if (data) {
+      console.log(JSON.parse(data));
+      this.setState({ data: JSON.parse(data) });
+    }
+    if (lat && lon && !dontHitApi) {
       this.getWeatherData(lat, lon);
     }
   }
 
   loadDataFromApi = () => {
-    console.log('loading from api');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
     }
@@ -54,6 +62,8 @@ class App extends Component {
   }
 
   getCityData = (lat, lon) => {
+    console.log('loading city from api');
+
     fetch('https://d7gsigzqe2.execute-api.eu-west-1.amazonaws.com/dev/getcity?lat=' +
       lat + '&lon=' + lon
     )
@@ -68,12 +78,15 @@ class App extends Component {
   }
 
   getWeatherData = (lat, lon) => {
+    console.log('loading weather from api');
 
     fetch('https://d7gsigzqe2.execute-api.eu-west-1.amazonaws.com/dev/getweather?lat=' +
       lat + '&lon=' + lon
     )
       .then(res => res.json())
       .then(data => {
+        localStorage.setItem('data', JSON.stringify(data));
+
         console.log(data)
         this.setState({
           data: data
@@ -97,20 +110,22 @@ class App extends Component {
             </div>
             <div className="data">
               {this.state.data.currently.temperature}°C
-           </div>
+            </div>
+            <img src={'./icons/' + this.state.data.currently.icon + '.svg'} alt="" />
             <div className="data">
               {this.state.data.hourly.summary}°C
-           </div>
+            </div>
             <div className="data">
               {this.state.data.daily.summary}°C
-           </div>
+            </div>
           </div>
 
         }
-
+        <footer><img height="50" src="https://darksky.net/dev/img/attribution/poweredby-darkbackground.png" alt="darksky icon" /></footer>
       </div>
     );
   }
 }
 
 export default App;
+

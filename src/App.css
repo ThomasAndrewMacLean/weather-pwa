@@ -7,7 +7,7 @@
   background-color: #222;
   height: 50px;
   padding: 20px;
-  margin-top:50px;
+  
   color: white;
   display:flex;
   justify-content: center;
@@ -16,4 +16,13 @@
 
 .data{
   margin:30px;
+}
+
+
+footer{
+  background-color: #222;
+  height: 50px;
+  position: absolute;
+  bottom:0;
+  width:100vw;
 }
