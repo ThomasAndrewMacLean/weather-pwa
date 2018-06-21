@@ -1,5 +1,8 @@
+
 import React, { Component } from 'react';
 import './App.css';
+var Twit = require('twit');
+
 
 const dontHitApi = process.env.NODE_ENV !== 'production' && localStorage.getItem('city');
 
@@ -11,10 +14,26 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.getTweets();
     this.loadDataFromLocalStorage();
     if (!dontHitApi) {
       this.loadDataFromApi();
     }
+  }
+
+  getTweets = () => {
+    console.log(process.env.CONS_SECRET);
+
+    var T = new Twit({
+      consumer_key: 'Zbom8PGyLV9emL6Vnr2sST946',
+      consumer_secret: 'On2HHRxU44UJHkNCowViovB21jIcmC8YP3jt3PwZn7BThXt9fg',
+      access_token: '848122671007137792-NcOrVA3uYx568sXSViHIiUevu4nS2yg',
+      access_token_secret: 'COoudQjWOcnysx2gc1lGpZbtxbcok32BLJRSBLPFfiZd8',
+      timeout_ms: 60 * 1000,
+    })
+    T.get('search/tweets', { q: 'frankdeboosere', count: 3 }, function (err, data, response) {
+      console.log(data)
+    })
   }
 
   loadDataFromLocalStorage = () => {
@@ -104,7 +123,7 @@ class App extends Component {
         </header>
 
         {this.state.data.currently &&
-          <div>
+          <div className="container">
             <div className="data">
               {this.state.data.currently.summary}
             </div>
@@ -113,10 +132,10 @@ class App extends Component {
             </div>
             <img src={'./icons/' + this.state.data.currently.icon + '.svg'} alt="" />
             <div className="data">
-              {this.state.data.hourly.summary}°C
+              {this.state.data.hourly.summary}
             </div>
             <div className="data">
-              {this.state.data.daily.summary}°C
+              {this.state.data.daily.summary}
             </div>
             <div className="data">
               {new Date(this.state.data.currently.time * 1000).toLocaleTimeString()}

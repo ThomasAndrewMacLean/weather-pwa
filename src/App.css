@@ -7,22 +7,25 @@
   background-color: #222;
   height: 50px;
   padding: 20px;
-  
   color: white;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.data{
-  margin:30px;
+.data {
+  margin: 30px;
 }
 
+.container {
+  height: calc(100vh - 140px);
+  overflow: auto;
+}
 
-footer{
+footer {
   background-color: #222;
   height: 50px;
   position: absolute;
-  bottom:0;
-  width:100vw;
+  bottom: 0;
+  width: 100vw;
 }
