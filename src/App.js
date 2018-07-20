@@ -24,6 +24,8 @@ class App extends Component {
   getTweets = () => {
     console.log(process.env.CONS_SECRET);
 
+    //https://apps.twitter.com/
+    //add newly generated keys to .env 
     var T = new Twit({
       consumer_key: 'Zbom8PGyLV9emL6Vnr2sST946',
       consumer_secret: 'On2HHRxU44UJHkNCowViovB21jIcmC8YP3jt3PwZn7BThXt9fg',
