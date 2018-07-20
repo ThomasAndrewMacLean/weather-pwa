@@ -1,31 +1,31 @@
 .App {
-  text-align: center;
-  font-size: large;
+    text-align: center;
+    font-size: large;
 }
 
 .App-header {
-  background-color: #222;
-  height: 50px;
-  padding: 20px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-color: #222;
+    height: 50px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .data {
-  margin: 30px;
+    margin: 30px;
 }
 
 .container {
-  height: calc(100vh - 140px);
-  overflow: auto;
+    height: calc(100vh);
+    overflow: auto;
 }
 
 footer {
-  background-color: #222;
-  height: 50px;
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
+    background-color: #222;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
 }
