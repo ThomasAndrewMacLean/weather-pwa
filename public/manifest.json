@@ -3,7 +3,7 @@
   "name": "Weather",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": "/public/favicon.png",
       "sizes": "144x144 64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
