@@ -1,17 +1,26 @@
 {
-  "name": "weather-pwa",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4",
-    "twit": "^2.2.9"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "name": "weather-pwa",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "claudia-api-builder": "^4.1.2",
+        "react": "^16.3.2",
+        "react-dom": "^16.3.2",
+        "react-scripts": "1.1.4",
+        "twit": "^2.2.9"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject",
+        "deploy": "claudia create --version dev --region eu-west-1 --api-module backend/api --set-env-from-json .env.json --profile claudiaJS",
+        "release": "claudia set-version --version production",
+        "update": "claudia update --version dev --set-env-from-json .env.json --profile claudiaJS"
+    },
+    "devDependencies": {
+        "claudia": "^5.4.2",
+        "eslint": "^5.1.0",
+        "eslint-plugin-react": "^7.10.0"
+    }
 }

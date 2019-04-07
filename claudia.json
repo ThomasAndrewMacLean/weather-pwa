@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "weather-pwa-executor",
+    "name": "weather-pwa",
+    "region": "eu-west-1"
+  },
+  "api": {
+    "id": "89vdid7nxl",
+    "module": "backend/api"
+  }
+}

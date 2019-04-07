@@ -18,14 +18,23 @@
 }
 
 .container {
-    height: calc(100vh);
-    overflow: auto;
+    /* height: calc(100vh);
+    overflow: auto; */
 }
 
+.tweet{
+    background: aliceblue;
+    max-width: 350px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 10px;
+    
+}
 footer {
     background-color: #222;
     height: 50px;
-    position: fixed;
-    bottom: 0;
+    /* position: fixed; */
+    /* bottom: 0; */
     width: 100vw;
 }

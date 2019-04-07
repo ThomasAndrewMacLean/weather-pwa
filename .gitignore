@@ -22,3 +22,6 @@ yarn-error.log*
 
 clipboard.txt
 .env
+.env.json
+
+test.js
