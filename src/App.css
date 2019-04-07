@@ -1,6 +1,10 @@
 .App {
     text-align: center;
     font-size: large;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .App-header {
@@ -22,15 +26,16 @@
     overflow: auto; */
 }
 
-.tweet{
+.tweet {
     background: aliceblue;
     max-width: 350px;
     margin: 20px auto;
     padding: 10px;
     border: 1px solid;
     border-radius: 10px;
-    
+
 }
+
 footer {
     background-color: #222;
     height: 50px;
